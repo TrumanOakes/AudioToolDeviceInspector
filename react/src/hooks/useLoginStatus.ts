@@ -40,9 +40,12 @@ export const useLoginStatus = (): UseLoginStatusResult => {
     setState({ case: "loading" });
 
     try {
+      // ✅ Correct for local + GitHub Pages
+      const redirectUrl = `${window.location.origin}${import.meta.env.BASE_URL}`;
+
       const status = await getLoginStatus({
         clientId,
-        redirectUrl: window.location.origin + "/",
+        redirectUrl,
         scope: "project:write",
       });
 
